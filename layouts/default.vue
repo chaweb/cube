@@ -56,12 +56,32 @@ html
 
 <script>
 export default {
+  methods: {
+    updateScroll(){
+        let scroll = this.main.scrollTop == 0 ? 1 : this.main.scrollTop
+        let MaxScroll = this.main.scrollHeight - this.main.clientHeight
+
+        let t = ((scroll)*this.nbTour/MaxScroll)*this.nbimg + this.nbimg/2
+
+        let img = Math.round(t - this.nbimg*(Math.round(t/this.nbimg)) + this.nbimg/2)+ 1
+        
+        console.log(img)
+        let cubePos = '' + img
+        cubePos = '0'.repeat(4-cubePos.length) + cubePos
+        this.cubePos = cubePos
+
+    }
+  },
     data () {
         return {
-            cubePos: '0001'
+            cubePos: '0001',
+            main: '',
+            nbimg: 179,
+            nbTour : 1.3*4
         }
     },
     mounted(){
+        console.log("hi !")
         var imageObject = []
         for(let i = 0; i<181; i+=2){
             imageObject[i] = new Image();
@@ -70,22 +90,8 @@ export default {
             imageObject[i].src = `/cube/cube/${code}.png`
             imageObject[i+1].src = `/cube/cube/480_${code}.png`
         }
-        const main = document.querySelector('.main')
-        const nbimg = 179
-        const nbTour = 1.3*4
-        main.onscroll = function(e){
-            let scroll = main.scrollTop == 0 ? 1 : main.scrollTop
-            let MaxScroll = main.scrollHeight - main.clientHeight
-
-            let t = ((scroll)*nbTour/MaxScroll)*nbimg + nbimg/2
-
-            let img = Math.round(t - nbimg*(Math.round(t/nbimg)) + nbimg/2)+ 1
-            
-            console.log(img)
-            let cubePos = '' + img
-            cubePos = '0'.repeat(4-cubePos.length) + cubePos
-            window.$nuxt.$children[2].cubePos = cubePos
-        }
+        this.main = document.querySelector('.main')
+        this.main.addEventListener('scroll', this.updateScroll)
     }
     
 }
