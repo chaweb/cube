@@ -1,6 +1,6 @@
 <template lang="pug">
 .page
-    img(:src="`/cube/${cubePos}.png`").cube
+    img(:src="`/cube/${cubePos}.png`" :srcset="`/cube/480_${cubePos}.png 480w, /cube/${cubePos}.png 1920w`" alt="un cube qui tournne en fonction du scroll").cube
 
     nuxt.main
 
@@ -33,15 +33,24 @@ html
     right: 0
     width: 50vw
     padding-left: 50vw
-    z-index: 0
+    z-index: 10
+    @media screen and (max-width: 920px) 
+        width: calc(100vw - 4rem)
+        paddin-left: 2rem
 
 .cube
     position: fixed
     top: 0
     left: -25%
     width: 100vw
-    z-index: -1
+    z-index: 0
     backdrop-filter: blur(6rem)
+    @media screen and (max-width: 920px) 
+        width: auto
+        height: 100vh
+        object-fit: cover
+        left: -25%
+        padding-left: 1rem
 
 </style>
 
@@ -54,17 +63,16 @@ export default {
     },
     mounted(){
         var imageObject = []
-        for(let i = 0; i<181; i++){
-            console.log(i)
-
+        for(let i = 0; i<181; i+=2){
             imageObject[i] = new Image();
-            imageObject[i].src = `/cube/${('0'.repeat(4-('' + i).length) + ('' + i))}.png`
+            imageObject[i+1] = new Image();
+            let code = ('0'.repeat(4-('' + i).length) + ('' + i))
+            imageObject[i].src = `/cube/${code}.png`
+            imageObject[i+1].src = `/cube/480_${code}.png`
         }
-        console.log(imageObject)
-
         const main = document.querySelector('.main')
         const nbimg = 179
-        const nbTour = .800*4
+        const nbTour = 1.3*4
         main.onscroll = function(e){
             let scroll = main.scrollTop == 0 ? 1 : main.scrollTop
             let MaxScroll = main.scrollHeight - main.clientHeight

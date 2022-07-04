@@ -1,20 +1,21 @@
 <template lang="pug">
+include ../node_modules/bemto.pug/bemto.pug
 .content
-    .page1
-        h1.page1__title The Cube
+    +b.page1
+        +e.H1.title The Cube
             sup ®
             | !
-        ul.page1__atouts
+        +e.UL.atouts
             li pratique pour être poser chez vous
             li sobre pour passer partout
             li ne se salit jamais, 
                 i indégradable
                 |  !!
-    .page2
+    +b.page2
 
-    .page3
+    +b.page3
 
-    .page4
+    +b.page4
 </template>
 
 <style lang="sass">
@@ -26,6 +27,11 @@ p, a, div
     h#{7 - $i} 
         font-size: $i * 1.4rem
         font-family: 'dosis', sans-serif
+    @media screen and (max-width: 920px) 
+        h#{7 - $i}
+            font-size: $i * .6rem
+            font-family: 'dosis', sans-serif
+    
     
 sub, sup
     font-size: 4rem
@@ -49,9 +55,13 @@ li
     background-image: linear-gradient(90deg, rgba(2,0,36,0) 46%, rgba(52,0,113,.15) 100%) 
     &__atouts
         padding-left: 10vh
+        height: 100%
+        display: flex
+        flex-direction: column
         li
+            margin: auto 0
             padding: 1rem 1rem
-            margin: 4rem 0
+            width: 100%
             transition: .3s
             border: solid #fff 2px
             border-right: none
@@ -65,4 +75,9 @@ li
                 color: #000
                 transition: .3s
                 box-shadow: #aaf3 0 12px 24px, #aaf3 0 -12px 24px, #fff2 0 0 24px
+        @media screen and (max-width: 920px) 
+            padding-left: 0
+            li 
+                background: #000000A0
+                width: calc(100% - 1rem)
 </style>
