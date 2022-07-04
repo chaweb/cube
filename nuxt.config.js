@@ -12,7 +12,7 @@ export default {
   head: {
     title: 'cube',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'fr'
     },
     meta: [
       { charset: 'utf-8' },

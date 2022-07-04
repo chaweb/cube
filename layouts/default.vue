@@ -1,6 +1,6 @@
 <template lang="pug">
 .page
-    img(:src="`/cube/${cubePos}.png`" :srcset="`/cube/480_${cubePos}.png 480w, /cube/${cubePos}.png 1920w`" alt="un cube qui tournne en fonction du scroll").cube
+    img(:src="`/cube/cube/${cubePos}.png`" :srcset="`/cube/cube/480_${cubePos}.png 480w, /cube/cube/${cubePos}.png 1920w`" alt="un cube qui tournne en fonction du scroll").cube
 
     nuxt.main
 
@@ -67,8 +67,8 @@ export default {
             imageObject[i] = new Image();
             imageObject[i+1] = new Image();
             let code = ('0'.repeat(4-('' + i).length) + ('' + i))
-            imageObject[i].src = `/cube/${code}.png`
-            imageObject[i+1].src = `/cube/480_${code}.png`
+            imageObject[i].src = `/cube/cube/${code}.png`
+            imageObject[i+1].src = `/cube/cube/480_${code}.png`
         }
         const main = document.querySelector('.main')
         const nbimg = 179
