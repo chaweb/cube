@@ -12,7 +12,7 @@ include ../../node_modules/bemto.pug/bemto.pug
                 i indégradable
                 |  !!
     +b.page2
-
+        +e.H2.title 
     +b.page3
 
     +b.page4

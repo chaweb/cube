@@ -40,17 +40,22 @@
 
 <script>
 export default {
+    head: {
+        link: [
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        ]
+    },
     methods: {
         updateScroll(){
-            let scroll = this.main.scrollTop == 0 ? 1 : this.main.scrollTop
+            let scroll = this.main.scrollTop 
             let MaxScroll = this.main.scrollHeight - this.main.clientHeight
 
             let t = ((scroll)*this.nbTour/MaxScroll)*this.nbimg + this.nbimg/2
 
-            let img = Math.round(t - this.nbimg*(Math.round(t/this.nbimg)) + this.nbimg/2)+ 1
+            let img = Math.round(t - this.nbimg*(Math.round(t/this.nbimg)) + this.nbimg/2)
             
-            console.log(img)
-            let cubePos = '' + img
+            let cubePos = '' + (img == 0 ? 1 : img)
+            console.log(cubePos)
             cubePos = '0'.repeat(4-cubePos.length) + cubePos
             this.cubePos = cubePos
 
@@ -61,7 +66,7 @@ export default {
             cubePos: '0001',
             main: '',
             nbimg: 179,
-            nbTour : 1.3*4
+            nbTour : 1*4
         }
     },
     mounted(){
