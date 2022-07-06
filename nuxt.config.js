@@ -35,6 +35,20 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    ['nuxt-breakpoints', { 
+               // phone
+      sm: 600, 
+               // medium tablet
+      md: 960, 
+               // large tablette or laptop
+      lg: 1264, 
+               // Desktop
+      xl: 1904,
+               // télévision 4k
+      options: {
+        polyfill: true,
+        throttle: 200
+      } }]
     
   ],
 
