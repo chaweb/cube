@@ -23,8 +23,14 @@ export default {
     ]
   },
 
+  pageTransition: {
+    name: 'my-page',
+    mode: 'out-in'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/main.sass'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

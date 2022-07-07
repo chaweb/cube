@@ -18,7 +18,7 @@
     width: 50vw
     padding-left: 50vw
     z-index: 10
-    @media screen and (max-width: 920px) 
+    @media (orientation: portrait) 
         width: calc(100vw - 4rem)
         paddin-left: 2rem
 
@@ -29,20 +29,40 @@
     width: 100vw
     z-index: 0
     backdrop-filter: blur(6rem)
-    @media screen and (max-width: 920px) 
-        width: 100vw
-        object-fit: cover
-        padding-left: 1rem
 
 </style>
 
 <script>
 export default {
+  watch: {
+    baseURLrendu(){
+        console.log(`url actuel : ${this.baseURLrendu}`)
+        for(let i = 0; i<181; i+=2){
+            this.imageObject[i] = new Image();
+            let code = ('0'.repeat(4-('' + i).length) + ('' + i))
+            this.imageObject[i].src = `${this.baseURLrendu}${code}.png`
+        }
+    }
+  },
     head: {
         title: "the cube",
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/cube/favicon.ico' }
         ]
+    },
+    computed: {
+        orientation: function () {
+            return this.$breakpoints.orientation
+        },
+        phone: function(){
+            return this.$breakpoints.sSm
+        },
+        tablet: function(){
+            return this.$breakpoints.sMd && this.$breakpoints.lSm
+        },
+        baseURLrendu: function(){
+            return  `/cube/rendu/${this.orientation == "portrait"? "portrait_" : ''}${this.phone ? "480_" : (this.tablet ? "960_" : '')}`
+        },
     },
     methods: {
         updateScroll(){
@@ -54,7 +74,6 @@ export default {
             let img = Math.round(t - this.nbimg*(Math.round(t/this.nbimg)) + this.nbimg/2)
             
             let cubePos = '' + (img == 0 ? 1 : img)
-            console.log(cubePos)
             cubePos = '0'.repeat(4-cubePos.length) + cubePos
             this.cubePos = cubePos
 
@@ -66,8 +85,7 @@ export default {
             main: '',
             nbimg: 179,
             nbTour : 0.249*4,
-            baseURLrendu: "/cube/rendu/",
-            imageObject : []
+            imageObject: []
         }
     },
     mounted(){
