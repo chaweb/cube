@@ -7,7 +7,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'cube',
+    title: 'git',
+    titleTemplate: "%s - chaweb",
     htmlAttrs: {
       lang: 'fr'
     },
@@ -35,7 +36,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    ['nuxt-breakpoints', { 
+    ['~/assets/nuxt-breakpoints', { 
                // phone
       sm: 600, 
                // medium tablet
@@ -47,7 +48,9 @@ export default {
                // télévision 4k
       options: {
         polyfill: true,
-        throttle: 200
+        throttle: 200,
+        orientationDefault: false,
+        viewPort: "html"
       } }]
     
   ],

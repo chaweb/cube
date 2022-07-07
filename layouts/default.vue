@@ -15,6 +15,8 @@ html
     background-size: cover
     &, body
         overflow: hidden
-        marging: 0
+        margin: 0
         padding: 0
+        height: 100vh
+        width: 100vw
 </style>

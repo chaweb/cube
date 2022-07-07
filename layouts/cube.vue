@@ -1,6 +1,6 @@
 <template lang="pug">
 .page
-    img(:src="`/cube/${cubePos}.png`" :srcset="`/cube/480_${cubePos}.png 480w, /cube/${cubePos}.png 1920w`" alt="un cube qui tournne en fonction du scroll").cube
+    img(:src="`${baseURLrendu}${cubePos}.png`" alt="un cube qui tournne en fonction du scroll").cube
 
     nuxt.main
 
@@ -25,15 +25,13 @@
 .cube
     position: fixed
     top: 0
-    left: -25%
+    left: 0
     width: 100vw
     z-index: 0
     backdrop-filter: blur(6rem)
     @media screen and (max-width: 920px) 
-        width: auto
-        height: 100vh
+        width: 100vw
         object-fit: cover
-        left: -25%
         padding-left: 1rem
 
 </style>
@@ -41,8 +39,9 @@
 <script>
 export default {
     head: {
+        title: "the cube",
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            { rel: 'icon', type: 'image/x-icon', href: '/cube/favicon.ico' }
         ]
     },
     methods: {
@@ -66,18 +65,16 @@ export default {
             cubePos: '0001',
             main: '',
             nbimg: 179,
-            nbTour : 1*4
+            nbTour : 0.249*4,
+            baseURLrendu: "/cube/rendu/",
+            imageObject : []
         }
     },
     mounted(){
-        console.log("hi !")
-        var imageObject = []
         for(let i = 0; i<181; i+=2){
-            imageObject[i] = new Image();
-            imageObject[i+1] = new Image();
+            this.imageObject[i] = new Image();
             let code = ('0'.repeat(4-('' + i).length) + ('' + i))
-            imageObject[i].src = `/cube/${code}.png`
-            imageObject[i+1].src = `/cube/480_${code}.png`
+            this.imageObject[i].src = `${this.baseURLrendu}${code}.png`
         }
         this.main = document.querySelector('.main')
         this.main.addEventListener('scroll', this.updateScroll)
