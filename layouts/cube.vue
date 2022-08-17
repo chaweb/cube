@@ -1,10 +1,9 @@
 <template lang="pug">
 .page
+    .waiter(v-if="!mount") attendez !
     img(:src="`${baseURLrendu}${cubePos}.png`" alt="un cube qui tournne en fonction du scroll").cube
 
     nuxt.main
-
-
 </template>
 
 <style lang="sass" scoped>
@@ -85,7 +84,8 @@ export default {
             main: '',
             nbimg: 179,
             nbTour : 0.249*4,
-            imageObject: []
+            imageObject: [],
+            mount: false
         }
     },
     mounted(){
@@ -96,6 +96,8 @@ export default {
         }
         this.main = document.querySelector('.main')
         this.main.addEventListener('scroll', this.updateScroll)
+
+        this.mount = true
     }
     
 }
