@@ -5,7 +5,17 @@ export default {
             timestamp: [0,0,0],
             temp : 1,
             mounted: false,
-            clockBalise : {}
+            clockBalise : {},
+            tim : {
+                    uni : {
+                        bot: 0,
+                        top: 0
+                    }, 
+                    dec : {
+                        bot: 0,
+                        top: 0
+                    }
+                }
         }
     },
     mounted(){
@@ -44,111 +54,62 @@ export default {
                     if (key == "secondes") var timed = sec
                     if (key == "minutes") var timed = min
                     if (key == "hours") var timed = hou
-                    
-                    var botUni = timed % 5 //bar bottom of unit
-                    var topUni = ((timed - botUni)/5) % 4//bar top of unit
-                    var botDec = (((timed - botUni)/5)- topUni)/4 % 5 //bar bottom of dec
-                    var topDec = (((((timed - botUni)/5)- topUni)/4)- botDec)/5 % 4 //bar top of dec
 
-                    this.clockBalise[key].uni.forEach(elem => {
-                        if(elem.classList.contains("un")){
-                            if(topUni == 0 && botUni == 0){
-                                elem.style.border = "black solid 6px"
-                            }else{elem.style.border = "none"}
-                        }
+                    this.tim.uni.bot = timed % 5
+                    this.tim.uni.top = (timed - this.tim.uni.bot) / 5 % 4
+                    this.tim.dec.bot = (((timed - this.tim.uni.bot) / 5) - this.tim.uni.top)/4 %5,
+                    this.tim.dec.top = (((((timed - this.tim.uni.bot) / 5) - this.tim.dec.bot)/4)-  this.tim.dec.bot)/5 % 4
+                    for(var num in this.clockBalise[key]){
+                        this.clockBalise[key][num].forEach(elem => {
+                            if(elem.classList.contains("un")){
+                                if(this.tim[num].bot == 0 && this.tim[num].top == 0){
+                                    elem.style.border = "black solid 6px"
+                                }else{elem.style.border = "none"}
+                            }
 
-                        if(elem.classList.contains("de")){
-                            if(botUni >= 1){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("tr")){
-                            if(botUni >= 2){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("qu")){
-                            if(botUni >= 3){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("ci")){
-                            if(botUni >= 4){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("si")){
-                            if(topUni >= 1){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("se")){
-                            if(topUni >= 2){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("hu")){
-                            if(topUni >= 3){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                    });
-
-                    this.clockBalise[key].dec.forEach(elem => {
-                        if(elem.classList.contains("un")){
-                            if(topDec == 0 && botDec == 0){
-                                elem.style.border = "black solid 6px"
-                            }else{elem.style.border = "none"}
-                        }
-
-                        if(elem.classList.contains("de")){
-                            if(botDec >= 1){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("tr")){
-                            if(botDec >= 2){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("qu")){
-                            if(botDec >= 3){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("ci")){
-                            if(botDec >= 4){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("si")){
-                            if(topDec >= 1){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("se")){
-                            if(topDec >= 2){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                        
-                        if(elem.classList.contains("hu")){
-                            if(topDec >= 3){
-                                elem.style.background = "black"
-                            }else{elem.style.background = "none"}
-                        }
-                    });
+                            if(elem.classList.contains("de")){
+                                if(this.tim[num].bot >= 1){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                            
+                            if(elem.classList.contains("tr")){
+                                if(this.tim[num].bot >= 2){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                            
+                            if(elem.classList.contains("qu")){
+                                if(this.tim[num].bot >= 3){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                            
+                            if(elem.classList.contains("ci")){
+                                if(this.tim[num].bot >= 4){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                            
+                            if(elem.classList.contains("si")){
+                                if(this.tim[num].top >= 1){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                            
+                            if(elem.classList.contains("se")){
+                                if(this.tim[num].top >= 2){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                            
+                            if(elem.classList.contains("hu")){
+                                if(this.tim[num].top >= 3){
+                                    elem.style.background = "black"
+                                }else{elem.style.background = "none"}
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -197,7 +158,7 @@ export default {
 
     .clock
         color: black
-        background-color: white
+        background-color: #ddd 
         width: 60vw
         max-width: 100em
         display: flex
