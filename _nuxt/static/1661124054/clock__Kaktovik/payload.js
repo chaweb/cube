@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/clock__Kaktovik", {data:[{}],fetch:{},mutations:void 0});
